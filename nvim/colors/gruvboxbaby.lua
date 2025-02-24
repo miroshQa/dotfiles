@@ -303,6 +303,7 @@ local theme = {
   ModeMsg = { fg = c.milk },
   IncSearch = { bg = "#ff9e64", fg = "White" },
   CurSearch = { bg = "#ff9e64", fg = "White" },
+  FlashLabel = { bg = "#0076CE"},
 }
 
 vim.cmd.hi("clear")
