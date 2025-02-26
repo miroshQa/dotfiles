@@ -12,9 +12,10 @@ from screens import screens
 
 layouts = [
     layout.Columns(
-        border_width=5,
+        border_width=3,
         margin=10,
-        border_focus=colors["color7"],
+        border_focus="#92dce5",
+        border_normal="#DEDEDE",
     ),
 ]
 
@@ -34,7 +35,7 @@ bring_front_click = False
 floats_kept_above = True
 cursor_warp = False
 floating_layout = layout.Floating(
-    border_focus=colors["color7"],
+    border_focus="#f7e3b0",
     border_width=5,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.

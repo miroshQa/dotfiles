@@ -1,4 +1,5 @@
 from libqtile import bar, layout, qtile
+from libqtile import widget as d_widget
 from qtile_extras import widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from qtile_extras.widget.bluetooth import Bluetooth
@@ -40,6 +41,18 @@ screens = [
                     ]
                 ),
                 widget.Spacer(),
+                widget.Net(
+                    format='{down:.0f}{down_suffix} ↓↑ {up:.0f}{up_suffix}',
+                    decorations=[
+                        RectDecoration(
+                            colour=colors["background"],
+                            radius=widget_radius,
+                            filled=True,
+                            padding_y=0
+                        )
+                    ]
+                ),
+                widget.Sep(**sep_config),
                 widget.Clock(
                     format="󰥔 %I:%M",
                     foreground=colors["color4"],
@@ -54,6 +67,9 @@ screens = [
                     ], 
                 ),
                 widget.Sep(**sep_config),
+                # widget.Wlan(
+                #     interface="wlp1s0",
+                # ),
                 widget.Memory(
                     fontsize=fontsize,
                     format="󰍛 {MemUsed:.0f}{mm}",
@@ -104,6 +120,18 @@ screens = [
                             padding_y=0
                         )
                     ]
+                ),
+                widget.Sep(**sep_config),
+                widget.Volume(
+                    device="pulse",
+                    decorations=[
+                        RectDecoration(
+                            colour=colors["background"],
+                            radius=widget_radius,
+                            filled=True,
+                            padding_y=0
+                        )
+                    ], 
                 ),
                 widget.Sep(**sep_config),
                 widget.Backlight(
