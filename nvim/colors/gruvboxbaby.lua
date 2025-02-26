@@ -1,4 +1,4 @@
-local transparent_mode = true
+local transparent_mode = false
 
 local c = {
   foreground = "#fbf1c7",
