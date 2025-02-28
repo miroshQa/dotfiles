@@ -6,7 +6,7 @@ def autostart():
     autostartup = [
         'setxkbmap -layout "us,ru"',
         'keymapper -u &',
-        "picom &",
+        # "picom &",
         'dunst &',
         'xinput set-prop "ELAN2310:00 04F3:3238 Touchpad" "libinput Tapping Enabled" 1',
         'xinput set-prop "ELAN2310:00 04F3:3238 Touchpad" "libinput Natural Scrolling Enabled" 1',
