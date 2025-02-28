@@ -10,3 +10,24 @@ vim.api.nvim_create_autocmd("${1:Event}", {
   end
 })
 ]], {ft = "lua"})
+
+
+vim.snippet.add("cf", [[
+local M = {}
+
+---@class ${1:namespace}.${2:ClassName}
+local $2 = {}
+
+function M.new()
+  ---@class $1.$2
+  local self = setmetatable({}, {__index = $2})
+  return self
+end
+
+function $2:${3:SomeMethod}()
+  $4
+end
+
+return M
+]], {ft = "lua"})
+
