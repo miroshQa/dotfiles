@@ -21,6 +21,9 @@ return {
     { "gd",        function() require("fzf-lua").lsp_definitions() end, },
     { "gr",        function() require("fzf-lua").lsp_references() end, },
     { "go",        function() require("fzf-lua").lsp_code_actions() end },
+    -- useful with rust
+    {"gi", function () require("fzf-lua").lsp_implementations() end, desc = "lsp implementations"},
+    {"gy", function () require("fzf-lua").lsp_typedefs() end, desc = "lsp implementations"}
 
   },
   config = function()
