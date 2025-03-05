@@ -50,6 +50,8 @@ return {
     servers.clangd = {}
     servers.rust_analyzer = {}
     servers.taplo = {}
+    -- haskell language server
+    servers.hls = {}
 
     -- npm install -g typescript typescript-language-server
     servers.ts_ls = {}

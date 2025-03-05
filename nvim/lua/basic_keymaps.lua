@@ -14,7 +14,6 @@ vim.keymap.set("c", "<down>", "<C-n>")
 vim.keymap.set("c", "<up>", "<C-p>")
 vim.keymap.set("n", "<C-p>", "<cmd>cprev<CR>", {desc = "Go to prev quickfixlist entry"})
 vim.keymap.set("n", "<C-n>", "<cmd>cnext<CR>", {desc = "Go to next quickfixlist entry"})
-vim.keymap.set('n',  '<Esc>', "<ESC><cmd>noh<CR>", {silent = true})
 
 -- Improved motions (Visual mode)
 vim.keymap.set('v', '<', '<gv', { noremap = true })
