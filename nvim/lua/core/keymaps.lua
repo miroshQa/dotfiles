@@ -10,14 +10,10 @@ vim.keymap.set("n", "<leader>w", function() vim.cmd("silent! w") end, {desc = "W
 vim.keymap.set("n", "<leader>q", function() vim.cmd("silent! q") end, {desc = "Quit window"})
 vim.keymap.set("n", "ga", "<cmd>b#<CR>", {desc = "Go to last Accessed file (Ctrl + ^ synonim)"})
 vim.keymap.set("x", "R", ":s##<left>", {desc = "Start replacement in selected range"})
-vim.keymap.set("c", "<down>", "<C-n>")
-vim.keymap.set("c", "<up>", "<C-p>")
-vim.keymap.set("n", "<C-p>", "<cmd>cprev<CR>", {desc = "Go to prev quickfixlist entry"})
-vim.keymap.set("n", "<C-n>", "<cmd>cnext<CR>", {desc = "Go to next quickfixlist entry"})
 
 -- Improved motions (Visual mode)
-vim.keymap.set('v', '<', '<gv', { noremap = true })
-vim.keymap.set('v', '>', '>gv', { noremap = true })
+vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })
+vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
 
 local diagnostic_on = true
 local function Toggle_diagnostics()
