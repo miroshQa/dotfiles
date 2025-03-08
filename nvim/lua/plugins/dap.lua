@@ -18,32 +18,14 @@ return {
     {"<C-c>", "<cmd>DapContinue<CR>", "Debug: continue"},
 
     {"<leader>db", "<cmd>DapToggleBreakpoint<CR>", "Debug: toggle breakpoint"},
-    { '<leader>dB', function() require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ') end, desc = 'Debug: Set Breakpoint', },
-    {"<leader>r", function() require('dap').run_to_cursor() end, "Debug: run to cursor"},
+    {"<leader>dr", function() require('dap').run_to_cursor() end, "Debug: run to cursor"},
 
     {"<leader>dt", "<cmd>DapTerminate<CR>", "Termniate"},
-    -- {"<leader>ds", function() require('dap.ui.widgets').centered_float(require('dap.ui.widgets').scopes) end, "Scopes"},
-    {"U", function() require('dap.ui.widgets').hover() end}
+    {"<leader>ds", function() require('dap.ui.widgets').centered_float(require('dap.ui.widgets').scopes) end, "Scopes"},
+    {"U", function() pcall(require('dap.ui.widgets').hover) end}
   },
   config = function()
     local dap = require("dap")
-    -- this line below increase starupt time, so I guess I should disable it
-    -- dap.set_log_level('TRACE')
-
-    local wpath = vim.fn.exepath("wezterm")
-    if not wpath then
-      print("Wezterm haven't found. External terminal launch will fail")
-    end
-    require("dap").defaults.fallback.auto_continue_if_many_stopped = false
-
-    -- local dap, dapui = require("dap"), require("dapui")
-    dap.defaults.fallback.external_terminal = {
-      command = wpath,
-      args = {"start", "--always-new-process"}
-    }
-
-    dap.defaults.fallback.force_external_terminal = true
-
     vim.fn.sign_define('DapBreakpoint',          { text='', texthl='red'})
     vim.fn.sign_define('DapBreakpointCondition', { text='', texthl='blue'})
     vim.fn.sign_define('DapBreakpointRejected',  { text='', texthl='orange'})

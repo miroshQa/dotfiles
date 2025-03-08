@@ -20,7 +20,7 @@ vim.keymap.set('v', '<', '<gv', { noremap = true })
 vim.keymap.set('v', '>', '>gv', { noremap = true })
 
 local diagnostic_on = true
-function Toggle_diagnostics()
+local function Toggle_diagnostics()
     if diagnostic_on then
         diagnostic_on = false
         vim.diagnostic.enable(false)
