@@ -16,12 +16,12 @@ return {
     {"<C-p>", "<cmd>DapStepOut<CR>", "Debug: step out (prev func call)"},
     {"<C-g>", "<cmd>DapStepInto<CR>", "Debug: step into (Go deeper)"},
     {"<C-c>", "<cmd>DapContinue<CR>", "Debug: continue"},
+    {"<C-s>", function() require('dap.ui.widgets').centered_float(require('dap.ui.widgets').scopes) end, "Scopes"},
 
-    {"<leader>db", "<cmd>DapToggleBreakpoint<CR>", "Debug: toggle breakpoint"},
-    {"<leader>dr", function() require('dap').run_to_cursor() end, "Debug: run to cursor"},
+    {"<leader>b", "<cmd>DapToggleBreakpoint<CR>", desc = "Debug: toggle breakpoint"},
+    {"<leader>r", function() require('dap').run_to_cursor() end, desc = "Debug: run to cursor"},
 
     {"<leader>dt", "<cmd>DapTerminate<CR>", "Termniate"},
-    {"<leader>ds", function() require('dap.ui.widgets').centered_float(require('dap.ui.widgets').scopes) end, "Scopes"},
     {"U", function() pcall(require('dap.ui.widgets').hover) end}
   },
   config = function()

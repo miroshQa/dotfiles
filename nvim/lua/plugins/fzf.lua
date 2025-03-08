@@ -10,12 +10,12 @@ return {
     -- { "<leader>b", function() require("fzf-lua").buffers() end },
     { "<leader>z", function() require("fzf-lua").zoxide() end,                     desc = "Find zoxide" },
     { "<leader>c", function() require("fzf-lua").git_bcommits() end,               desc = "Find buffer commits" },
-    { "<leader>b", function() require("fzf-lua").git_branches() end,               desc = "Find git branches" },
+    { "<leader>sb", function() require("fzf-lua").git_branches() end,               desc = "Find git branches" },
     { "<leader>C", function() require("fzf-lua").git_commits() end,                desc = "Find commits" },
 
     -- LSP
-    { "<leader>s", function() require("fzf-lua").lsp_document_symbols() end, desc = "Find lsp symbols" },
-    { "<leader>S", function() require("fzf-lua").lsp_live_workspace_symbols() end, desc = "Find lsp workspace symbols"},
+    { "<leader>j", function() require("fzf-lua").lsp_document_symbols() end, desc = "Find lsp symbols (jump)" },
+    { "<leader>J", function() require("fzf-lua").lsp_live_workspace_symbols() end, desc = "Find lsp workspace symbols (Jump) "},
     { "<leader>i", function() require("fzf-lua").lsp_document_diagnostics() end, desc = "Find diagnosticss"},
     { "<leader>I", function() require("fzf-lua").lsp_workspace_diagnostics() end, desc = "Find workspace diagnostics"},
     { "gd",        function() require("fzf-lua").lsp_definitions() end, },
