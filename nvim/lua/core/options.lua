@@ -1,5 +1,3 @@
-vim.cmd("colorscheme gruvboxbaby")
-
 -- Leader 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "

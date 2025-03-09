@@ -7,6 +7,7 @@ dap.adapters.lldb = {
   name = 'lldb'
 }
 
+-- https://github.com/llvm/llvm-project/blob/main/lldb/tools/lldb-dap/README.md
 dap.configurations.rust = {
   {
     name = 'Launch',
@@ -16,6 +17,7 @@ dap.configurations.rust = {
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
     args = {},
+    runInTerminal = true,
     initCommands = function()
       -- Find out where to look for the pretty printer Python module.
       local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
@@ -28,7 +30,7 @@ dap.configurations.rust = {
       local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
       return {
         ([[!command script import '%s']]):format(script_file),
-        ([[command source '%s']]):format(commands_file),
+        ([[!command source '%s']]):format(commands_file),
       }
     end,
   },

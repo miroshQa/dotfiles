@@ -17,15 +17,18 @@ return {
     {"<C-g>", "<cmd>DapStepInto<CR>", "Debug: step into (Go deeper)"},
     {"<C-c>", "<cmd>DapContinue<CR>", "Debug: continue"},
     {"<C-s>", function() require('dap.ui.widgets').centered_float(require('dap.ui.widgets').scopes) end, "Scopes"},
+    {"U", function() pcall(require('dap.ui.widgets').hover) end},
 
     {"<leader>b", "<cmd>DapToggleBreakpoint<CR>", desc = "Debug: toggle breakpoint"},
-    {"<leader>r", function() require('dap').run_to_cursor() end, desc = "Debug: run to cursor"},
-
+    {"<leader>db", "<cmd>FzfLua dap_breakpoints<CR>", desc = "Debug: search breakpoints"},
+    {"<leader>df", function() require('dap').focus_frame() end, desc = "Debug: focus current frame"},
+    {"<leader>dr", function() require('dap').run_to_cursor() end, desc = "Debug: run to cursor"},
     {"<leader>dt", "<cmd>DapTerminate<CR>", "Termniate"},
-    {"U", function() pcall(require('dap.ui.widgets').hover) end}
   },
   config = function()
     local dap = require("dap")
+    dap.defaults.fallback.terminal_win_cmd = '50vsplit new'
+
     vim.fn.sign_define('DapBreakpoint',          { text='', texthl='red'})
     vim.fn.sign_define('DapBreakpointCondition', { text='', texthl='blue'})
     vim.fn.sign_define('DapBreakpointRejected',  { text='', texthl='orange'})
