@@ -39,3 +39,6 @@ ${2:snippet}
 ]=], { ft = "lua" })
 
 
+vim.snippet.add("k", [[
+vim.keymap.set("${1:mode}", "${2:key}", "${3:action}" )
+]], {ft = "lua"})

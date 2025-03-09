@@ -14,6 +14,8 @@ vim.keymap.set("x", "R", ":s###g<left><left><left>", {desc = "Start replacement 
 -- Improved motions (Visual mode)
 vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })
 vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
+vim.keymap.del("s", "<")
+vim.keymap.del("s", ">")
 
 local diagnostic_on = true
 local function Toggle_diagnostics()
