@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("${1:Event}", {
     $0
   end
 })
-]], {ft = "lua"})
+]], { ft = "lua" })
 
 
 vim.snippet.add("cf", [[
@@ -29,5 +29,13 @@ function $2:${3:SomeMethod}()
 end
 
 return M
-]], {ft = "lua"})
+]], { ft = "lua" })
+
+-- http://lua-users.org/wiki/StringsTutorial (check about [= syntax)
+vim.snippet.add("sa", [=[
+vim.snippet.add("${1:trigger}", [[
+${2:snippet}
+]], {ft = "${3:filetype}"})
+]=], { ft = "lua" })
+
 
