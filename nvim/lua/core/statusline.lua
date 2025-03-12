@@ -31,11 +31,20 @@ local function lsp_status()
   return "LSP: " .. names
 end
 
+local function macro()
+  local reg = vim.fn.reg_recording()
+  if reg == "" then
+    return ""
+  end
+  return "Recording macro in: " .. reg
+end
+
 function _G.statusline()
   return table.concat({
     "%f",
     "%h%w%m%r",
     diagnostics(),
+    macro(),
     "%=",
     lsp_status(),
     "%y",
