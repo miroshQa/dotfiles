@@ -1,6 +1,4 @@
-local dap = require("dap")
-
-dap.adapters.delve = function(callback, config)
+vim.dap.adapters.delve = function(callback, config)
   if config.mode == 'remote' and config.request == 'attach' then
     callback({
       type = 'server',
@@ -22,7 +20,7 @@ end
 
 
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-dap.configurations.go = {
+vim.dap.configurations.go = {
   {
     type = "delve",
     name = "Debug",

@@ -1,7 +1,6 @@
-local dap = require("dap")
 
 -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#python
-dap.adapters.python = function(cb, config)
+vim.dap.adapters.python = function(cb, config)
   if config.request == 'attach' then
     ---@diagnostic disable-next-line: undefined-field
     local port = (config.connect or config).port
@@ -27,7 +26,7 @@ dap.adapters.python = function(cb, config)
   end
 end
 
-dap.configurations.python = {
+vim.dap.configurations.python = {
   {
     type = 'python',
     request = 'launch',

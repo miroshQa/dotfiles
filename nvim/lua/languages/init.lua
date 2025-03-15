@@ -1,4 +1,5 @@
 local ls = require("luasnip")
+vim.dap = require("dap")
 
 ---Add vs code style snippet
 ---@param body string vs code style snippet string

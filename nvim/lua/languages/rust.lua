@@ -1,14 +1,13 @@
 -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#ccrust-via-lldb-vscode
 
-local dap = require('dap')
-dap.adapters.lldb = {
+vim.dap.adapters.lldb = {
   type = 'executable',
   command = '/home/linuxbrew/.linuxbrew/bin/lldb-dap', -- adjust as needed, must be absolute path
   name = 'lldb'
 }
 
 -- https://github.com/llvm/llvm-project/blob/main/lldb/tools/lldb-dap/README.md
-dap.configurations.rust = {
+vim.dap.configurations.rust = {
   {
     name = 'Launch',
     type = 'lldb',
