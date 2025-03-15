@@ -304,6 +304,9 @@ local theme = {
   IncSearch = { bg = "#ff9e64", fg = "White" },
   CurSearch = { bg = "#ff9e64", fg = "White" },
   FlashLabel = { bg = "#0076CE"},
+
+  WinBar = { bg = c.background_light },
+  WinBarNC = {bg = c.background_light },
 }
 
 vim.cmd.hi("clear")
