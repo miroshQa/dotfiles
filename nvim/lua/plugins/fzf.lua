@@ -45,6 +45,9 @@ return {
         backdrop = 100,
       },
       keymap = {
+        fzf = {
+            ["ctrl-q"] = "select-all+accept",
+        },
         builtin = {
           true,
           ["<esc>"] = "hide",
