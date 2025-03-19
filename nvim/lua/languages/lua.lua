@@ -22,11 +22,9 @@ function $2.new()
   return self
 end
 
-function $2:${3:SomeMethod}()
+function $2:${3:some_method}()
   $4
 end
-
-return $2
 ]], { ft = "lua" })
 
 -- http://lua-users.org/wiki/StringsTutorial (check about [= syntax)
@@ -39,4 +37,20 @@ ${2:snippet}
 
 vim.snippet.add("k", [[
 vim.keymap.set("${1:mode}", "${2:key}", "${3:action}" )
-]], {ft = "lua"})
+]], { ft = "lua" })
+
+vim.dap.configurations.lua = {
+  {
+    type = 'nlua',
+    request = 'attach',
+    name = "Attach to running Neovim instance",
+  }
+}
+
+vim.dap.adapters.nlua = function(callback, config)
+  callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
+end
+
+vim.keymap.set('n', '<leader>ls', function()
+  require "osv".launch({ port = 8086 })
+end, { noremap = true, desc = "lua debug server" })
