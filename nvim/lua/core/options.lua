@@ -1,4 +1,4 @@
--- Leader 
+-- Leader
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -28,8 +28,21 @@ vim.g.termguicolors = true
 vim.opt.updatetime = 250
 vim.opt.showmode = false
 vim.opt.laststatus = 3
-vim.opt.fillchars = { eob = " "}
+vim.opt.fillchars = { eob = " " }
 
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+vim.diagnostic.config({
+  virtual_text = true,
+  float = { border = "rounded" },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+    },
+  },
+})

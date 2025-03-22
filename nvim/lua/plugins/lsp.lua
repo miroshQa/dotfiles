@@ -1,23 +1,12 @@
--- https://stackoverflow.com/questions/75397223/can-i-configure-nvim-lspconfig-to-fail-silently-rather-than-print-a-warning
--- Since neovim 0.11 I probably will be able to delete these checks
-local function lsp_binary_exists(server_config)
-  local valid_config = server_config.config_def and
-      server_config.config_def.default_config and
-      type(server_config.config_def.default_config.cmd) == "table" and
-      #server_config.config_def.default_config.cmd >= 1
-
-  if not valid_config then
-    return false
-  end
-
-  local binary = server_config.config_def.default_config.cmd[1]
-
-  return vim.fn.executable(binary) == 1
-end
-
 return {
   "neovim/nvim-lspconfig",
-  event = { "BufReadPost", "BufNewFile" },
+  event = {"BufReadPost", "BufNewFile"},
+  cmd = {"Mason"},
+  dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "ibhagwan/fzf-lua",
+  },
   keys = {
     { "cd",         vim.lsp.buf.rename,                  mode = "n"},
     { "<C-s>",      function() vim.lsp.buf.signature_help({border = "rounded"}) end,      mode = "i"},
@@ -29,49 +18,20 @@ return {
     { "<leader>lf", vim.lsp.buf.format,                  mode = "n"},
   },
   config = function()
-    local lspconfig = require("lspconfig")
-
-    vim.diagnostic.config({
-      virtual_text = true,
-      float = { border = "rounded" },
-      signs = {
-        text = {
-          [vim.diagnostic.severity.ERROR] = " ",
-          [vim.diagnostic.severity.WARN] = " ",
-          [vim.diagnostic.severity.HINT] = " ",
-          [vim.diagnostic.severity.INFO] = " ",
-        },
-      },
-    })
-
     local servers = {}
 
-    servers.lua_ls = {}
-    servers.clangd = {}
-    servers.rust_analyzer = {}
-    servers.taplo = {}
-    -- haskell language server
-    servers.hls = {}
+    require("mason").setup()
+    require("mason-lspconfig").setup()
+    require("mason-lspconfig").setup_handlers({
+      function(server_name)
+        local server = servers[server_name] or {}
+        require("lspconfig")[server_name].setup(server)
+      end,
+    })
 
-    -- npm install -g typescript typescript-language-server
-    servers.ts_ls = {}
-
-    -- npm i -g bash-language-server
-    servers.bashls = {}
-    servers.gopls = {}
-
-    -- npm i -g vscode-langservers-extracted
-    servers.jsonls = {}
-    servers.cssls = {}
-    servers.html = {}
-    servers.basedpyright = {}
-    -- type :help lspconfig-all
-
-    for name, opts in pairs(servers) do
-      local conf = lspconfig[name]
-      if lsp_binary_exists(conf) then
-        conf.setup(opts)
-      end
-    end
+    -- still can install and setup servers manually without mason
+    -- (just for future reference, because it useful someitmes, for example
+    -- rust analyzer ships with rustup so we don't want to install it with mason yet)
+    require("lspconfig")["rust_analyzer"].setup({})
   end,
 }
