@@ -30,21 +30,15 @@ return {
             end,
           },
         },
-        lualine_b = {
-        },
+        lualine_b = {},
         lualine_c = {
           { "filename",   path = 1 },
           { "branch" },
           { "diff" },
           { "diagnostics" },
         },
-        lualine_x = {
-          { "filetype" },
-        },
-        lualine_y = {
-          { "progress" },
-          { "location" }
-        },
+        lualine_x = { { "filetype" } },
+        lualine_y = { { "progress" }, { "location" } },
         lualine_z = {},
       },
       inactive_sections = {
