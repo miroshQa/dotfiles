@@ -24,7 +24,7 @@ screens = [
                 widget.GroupBox(
                     borderwidth=0,
                     block_highlight_text_color=colors["color3"],
-                    active=colors["foreground"],
+                    active=colors["color8"],
                     inactive=colors["color8"],
                     disable_drag=True,
                     fontsize=fontsize,

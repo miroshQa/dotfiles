@@ -46,13 +46,13 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
-groups = [
-    Group(
-        i[0],
-        label=i[1]
-    )
-    for i in [("1", "D"), ("2", ""), ("3", "󰈹"), ("4", "A"), ("5", "󰉋")]
-]
+groups = []
+
+groups.append(Group("1", label="D"))
+groups.append(Group("2", label="", matches=[Match(wm_class=["org.wezfurlong.wezterm"])] ))
+groups.append(Group("3", label="󰈹", matches=[Match(wm_class=["Google-chrome"])] ))
+groups.append(Group("4", label="A", matches=[Match(wm_class=["Anki"])] ))
+groups.append(Group("5", label="󰉋"))
 
 for i in groups:
     keys.extend(
