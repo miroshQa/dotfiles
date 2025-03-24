@@ -1,3 +1,25 @@
+local function lsp_status()
+  local attached_clients = vim.lsp.get_clients({ bufnr = 0 })
+  if #attached_clients == 0 then
+    return ""
+  end
+  local names = vim.iter(attached_clients)
+      :map(function(client)
+        local name = client.name:gsub("language.server", "ls")
+        return name
+      end)
+      :join(", ")
+  return "LSP: " .. names
+end
+
+local function macro()
+  local reg = vim.fn.reg_recording()
+  if reg == "" then
+    return ""
+  end
+  return "Recording macro in: " .. reg
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
@@ -36,8 +58,12 @@ return {
           { "branch" },
           { "diff" },
           { "diagnostics" },
+          { macro },
         },
-        lualine_x = { { "filetype" } },
+        lualine_x = {
+          {lsp_status},
+          { "filetype" },
+        },
         lualine_y = { { "progress" }, { "location" } },
         lualine_z = {},
       },
