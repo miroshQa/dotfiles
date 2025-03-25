@@ -13,7 +13,7 @@ from screens import screens
 layouts = [
     layout.Columns(
         border_width=3,
-        margin=10,
+        margin=5,
         border_focus="#92dce5",
         border_normal="#DEDEDE",
     ),
