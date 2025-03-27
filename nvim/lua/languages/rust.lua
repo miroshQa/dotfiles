@@ -12,7 +12,7 @@ vim.dap.configurations.rust = {
     name = 'Launch',
     type = 'lldb',
     request = 'launch',
-    program = require("dap.utils").pick_file,
+    program = vim.dap.utils.pick_file,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
     args = {},
@@ -39,7 +39,20 @@ vim.dap.configurations.rust = {
     name = "Attach to process",
     type = 'lldb',   -- Adjust this to match your adapter name (`dap.adapters.<name>`)
     request = 'attach',
-    pid =  require("dap.utils").pick_process,
+    pid =  vim.dap.utils.pick_process,
     args = {},
+  },
+}
+
+vim.dap.configurations.cpp = {
+  {
+    name = 'Launch',
+    type = 'lldb',
+    request = 'launch',
+    program = vim.dap.utils.pick_file,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {},
+    runInTerminal = true,
   },
 }

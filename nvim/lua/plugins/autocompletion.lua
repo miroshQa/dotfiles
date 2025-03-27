@@ -35,8 +35,8 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "rcarriga/cmp-dap"
     },
     config = function()
       local cmp = require("cmp")
@@ -44,6 +44,10 @@ return {
       local luasnip = require("luasnip")
       local compare = cmp.config.compare
       local opts = {
+        enabled = function()
+          return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt"
+              or require("cmp_dap").is_dap_buffer()
+        end,
         performance = {
           debounce = 0,
           throttle = 0,
@@ -52,7 +56,6 @@ return {
           format = function(entry, vim_item)
             vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
             vim_item.menu = ({
-              buffer = "",
               nvim_lsp = "",
               luasnip = "",
               nvim_lua = "",
@@ -92,8 +95,8 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "buffer" },
           { name = "path" }, -- type ./ to activate
+          { name = "dap", max_item_count = 10}
         }),
 
         window = {
@@ -123,4 +126,3 @@ return {
     end,
   },
 }
-

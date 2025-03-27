@@ -14,6 +14,7 @@ vim.snippet.add = function(trig, body, opts)
 end
 
 vim.dap = require("dap")
+vim.dap.utils = require("dap.utils")
 
 ---@type table<string, fun()>
 vim.ftplugin = {}
