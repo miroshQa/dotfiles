@@ -52,7 +52,8 @@ vim.dap.configurations.cpp = {
     program = vim.dap.utils.pick_file,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
-    args = {},
+    args = vim.dap.utils.query_args,
     runInTerminal = true,
   },
 }
+vim.dap.configurations.c = vim.dap.configurations.cpp
