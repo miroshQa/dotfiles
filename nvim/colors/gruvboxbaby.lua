@@ -90,7 +90,7 @@ local theme = {
 
   ErrorMsg = { fg = c.red },
   VertSplit = { fg = c.background_light },
-  Folded = { fg = c.comment },
+  Folded = { fg = "#928374", bg = "#3c3836", italic = true },
   LineNr = { fg = c.medium_gray },
   MatchParen = { bg = c.diff.text, underline = true },
   NonText = { fg = c.comment },
