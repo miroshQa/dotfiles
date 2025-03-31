@@ -24,7 +24,6 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   config = function()
-    local dmode = require("debugmaster.debug.mode")
     require("lualine").setup({
       options = {
         globalstatus = true,
@@ -36,14 +35,16 @@ return {
           {
             "mode",
             fmt = function(str)
-              if dmode.is_active() == true then
+              local ok, dmode = pcall(require, "debugmaster.debug.mode")
+              if ok and dmode.is_active() == true then
                 return "DEBUG"
               end
               return str
             end,
 
             color = function(tb)
-              if dmode.is_active() then
+              local ok, dmode = pcall(require, "debugmaster.debug.mode")
+              if ok and dmode.is_active() then
                 return {
                   bg = "#2da84f",
                 }
@@ -61,7 +62,7 @@ return {
           { macro },
         },
         lualine_x = {
-          {lsp_status},
+          { lsp_status },
           { "filetype" },
         },
         lualine_y = { { "progress" }, { "location" } },

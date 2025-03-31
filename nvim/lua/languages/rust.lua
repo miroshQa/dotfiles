@@ -6,6 +6,11 @@ vim.dap.adapters.lldb = {
   name = 'lldb'
 }
 
+vim.dap.adapters.codelldb = {
+  type = "executable",
+  command = vim.get_mason_bin("codelldb"),
+}
+
 -- https://github.com/llvm/llvm-project/blob/main/lldb/tools/lldb-dap/README.md
 vim.dap.configurations.rust = {
   {
@@ -37,9 +42,17 @@ vim.dap.configurations.rust = {
     -- If you get an "Operation not permitted" error using this, try disabling YAMA:
     --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
     name = "Attach to process",
-    type = 'lldb',   -- Adjust this to match your adapter name (`dap.adapters.<name>`)
+    type = 'lldb', -- Adjust this to match your adapter name (`dap.adapters.<name>`)
     request = 'attach',
-    pid =  vim.dap.utils.pick_process,
+    pid = vim.dap.utils.pick_process,
     args = {},
+  },
+  {
+    name = "Launch file (codelddb)",
+    type = "codelldb",
+    request = "launch",
+    program = vim.dap.utils.pick_file,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
   },
 }

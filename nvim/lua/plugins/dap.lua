@@ -19,7 +19,8 @@ return {
     "miroshQa/debugmaster.nvim",
     config = function()
       local dm = require("debugmaster")
-      vim.keymap.set("n", "<leader>d", dm.mode.toggle, { nowait = true })
+      vim.keymap.set({"n", "t"}, "<leader>d", dm.mode.toggle, { nowait = true })
+      vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", {desc = "Exit terminal mode"})
     end
   }
 }

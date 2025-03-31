@@ -27,4 +27,10 @@ vim.dap.configurations.go = {
     request = "launch",
     program = "${file}"
   },
+  {
+    type = "delve",
+    request = "attach",
+    name = "go attach to the process",
+    pid = vim.dap.utils.pick_process,
+  },
 }
