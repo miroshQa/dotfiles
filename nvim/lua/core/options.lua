@@ -29,7 +29,7 @@ vim.opt.updatetime = 250
 vim.opt.showmode = false
 vim.opt.laststatus = 3
 vim.opt.fillchars = { eob = " " }
-
+vim.go.guicursor = "n-v-sm:block,i-t-ci-ve-c:ver25,r-cr-o:hor20"
 -- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true

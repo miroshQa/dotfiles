@@ -31,6 +31,6 @@ vim.dap.configurations.go = {
     type = "delve",
     request = "attach",
     name = "go attach to the process",
-    pid = vim.dap.utils.pick_process,
+    processId = vim.dap.utils.pick_process,
   },
 }
