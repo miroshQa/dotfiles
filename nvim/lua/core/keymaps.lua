@@ -38,7 +38,6 @@ end, {desc = "Toggle lsp inlay hints"})
 
 -- lua is so powerful damn... I love closures
 vim.keymap.set({ "n", "t" }, "<C-t>", (function()
-  vim.cmd("autocmd TermOpen * startinsert")
   local buf, win = nil, nil
   local was_insert = false
   local cfg = function()
