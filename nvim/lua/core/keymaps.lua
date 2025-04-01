@@ -19,22 +19,24 @@ vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
 vim.keymap.del("s", "<")
 vim.keymap.del("s", ">")
 
-local diagnostic_on = true
-local function Toggle_diagnostics()
-  if diagnostic_on then
-    diagnostic_on = false
-    vim.diagnostic.enable(false)
-  else
-    diagnostic_on = true
-    vim.diagnostic.enable()
+vim.keymap.set('n', '<leader>ld', (function()
+  local enabled = true
+  return function()
+    if enabled then
+      enabled = false
+      vim.diagnostic.enable(false)
+    else
+      enabled = true
+      vim.diagnostic.enable()
+    end
   end
-end
+end)(), { noremap = true, silent = true, desc = "Toggle vim diagnostics" })
 
-vim.keymap.set('n', '<leader>ld', Toggle_diagnostics, { noremap = true, silent = true, desc = "Toggle vim diagnostics" })
-vim.keymap.set("n", "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+vim.keymap.set("n", "<leader>lh", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, {desc = "Toggle lsp inlay hints"})
 
 -- lua is so powerful damn... I love closures
---- float version
 vim.keymap.set({ "n", "t" }, "<C-t>", (function()
   vim.cmd("autocmd TermOpen * startinsert")
   local buf, win = nil, nil
@@ -50,7 +52,7 @@ vim.keymap.set({ "n", "t" }, "<C-t>", (function()
       border = 'rounded',
     }
   end
-  local function toggle()
+   return function()
     buf = (buf and vim.api.nvim_buf_is_valid(buf)) and buf or nil
     win = (win and vim.api.nvim_win_is_valid(win)) and win or nil
     if not buf and not win then
@@ -66,7 +68,6 @@ vim.keymap.set({ "n", "t" }, "<C-t>", (function()
     end
     if was_insert then vim.cmd("startinsert") end
   end
-  return toggle
 end)(), { desc = "Toggle float terminal" })
 
 vim.keymap.set("t", "<esc>", (function()
@@ -81,3 +82,15 @@ vim.keymap.set("t", "<esc>", (function()
     end
   end
 end)(), { desc = "Exit terminal mode", expr = true })
+
+vim.keymap.set("n", '[e', function() vim.diagnostic.jump({ severity = "ERROR", count = -1, float = true }) end)
+vim.keymap.set("n", ']e', function() vim.diagnostic.jump({ severity = "ERROR", count = 1, float = true }) end)
+vim.keymap.set("n", '[w', function() vim.diagnostic.jump({ severity = "WARN", count = -1, float = true }) end)
+vim.keymap.set("n", ']w', function() vim.diagnostic.jump({ severity = "WARN", count = 1, float = true }) end)
+vim.keymap.set("n", ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+vim.keymap.set("n", '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end)
+
+vim.keymap.set("n", "cd", vim.lsp.buf.rename)
+vim.keymap.set("n", "M", vim.diagnostic.open_float)
+vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end)
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)

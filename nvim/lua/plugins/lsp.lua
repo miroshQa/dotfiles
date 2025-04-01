@@ -8,14 +8,7 @@ return {
     "ibhagwan/fzf-lua",
   },
   keys = {
-    { "cd",         vim.lsp.buf.rename,                  mode = "n"},
-    { "<C-s>",      function() vim.lsp.buf.signature_help({border = "rounded"}) end,      mode = "i"},
-    { '[d',         function() vim.diagnostic.jump({severity = "ERROR", count = -1, float = true}) end,            mode = 'n'},
-    { ']d',         function() vim.diagnostic.jump({severity = "ERROR", count = 1, float = true}) end,            mode = 'n'},
-    { "M",          vim.diagnostic.open_float,           mode = "n"},
-    { "K",          function() vim.lsp.buf.hover({border = "rounded"}) end},
     { "<leader>lr", "<cmd>LspRestart<CR>",               mode = "n"},
-    { "<leader>lf", vim.lsp.buf.format,                  mode = "n"},
   },
   config = function()
     local servers = {}
