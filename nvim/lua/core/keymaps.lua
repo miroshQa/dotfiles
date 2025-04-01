@@ -35,8 +35,10 @@ vim.keymap.set("n", "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.l
 
 -- lua is so powerful damn... I love closures
 --- float version
-vim.keymap.set({ "n", "t" }, "<C-/>", (function()
+vim.keymap.set({ "n", "t" }, "<C-t>", (function()
+  vim.cmd("autocmd TermOpen * startinsert")
   local buf, win = nil, nil
+  local was_insert = false
   local cfg = function()
     return {
       relative = 'editor',
@@ -45,7 +47,7 @@ vim.keymap.set({ "n", "t" }, "<C-/>", (function()
       row = math.floor((vim.o.lines * 0.2) / 2),
       col = math.floor(vim.o.columns * 0.1),
       style = 'minimal',
-      border = 'single',
+      border = 'rounded',
     }
   end
   local function toggle()
@@ -59,8 +61,10 @@ vim.keymap.set({ "n", "t" }, "<C-/>", (function()
     elseif not win and buf then
       win = vim.api.nvim_open_win(buf, true, cfg())
     elseif win then
-      vim.api.nvim_win_close(win, true)
+      was_insert = vim.api.nvim_get_mode().mode == "t"
+      return vim.api.nvim_win_close(win, true)
     end
+    if was_insert then vim.cmd("startinsert") end
   end
   return toggle
 end)(), { desc = "Toggle float terminal" })
