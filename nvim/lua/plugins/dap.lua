@@ -16,7 +16,7 @@ return {
     end,
   },
   {
-    "miroshQa/debugmaster.nvim",
+    dir = "~/repos/debugmaster.nvim",
     config = function()
       local dm = require("debugmaster")
       vim.keymap.set({"n", "t"}, "<leader>d", dm.mode.toggle, { nowait = true })
