@@ -24,6 +24,13 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   config = function()
+    local dmode_enabled = false
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "DebugModeChanged",
+      callback = function(args)
+        dmode_enabled = args.data.enabled
+      end
+    })
     require("lualine").setup({
       options = {
         globalstatus = true,
@@ -35,16 +42,14 @@ return {
           {
             "mode",
             fmt = function(str)
-              local ok, dmode = pcall(require, "debugmaster.debug.mode")
-              if ok and dmode.is_active() == true then
+              if dmode_enabled then
                 return "DEBUG"
               end
               return str
             end,
 
             color = function(tb)
-              local ok, dmode = pcall(require, "debugmaster.debug.mode")
-              if ok and dmode.is_active() then
+              if dmode_enabled then
                 return {
                   bg = "#2da84f",
                 }
