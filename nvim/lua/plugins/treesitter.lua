@@ -15,6 +15,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     config = function()
+      local swap = require("nvim-treesitter.textobjects.swap")
+      vim.keymap.set("n", "{", function() swap.swap_previous("@parameter.inner") end)
+      vim.keymap.set("n", "}", function() swap.swap_next("@parameter.inner") end)
       ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup {
         textobjects = {
@@ -29,11 +32,6 @@ return {
               ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
             },
             include_surrounding_whitespace = true,
-          },
-          swap = {
-            enable = true,
-            swap_next = { ["}"] = "@parameter.inner", },
-            swap_previous = { ["{"] = "@parameter.inner", },
           },
           move = {
             enable = true,
@@ -54,7 +52,7 @@ return {
   {
     'Wansmer/treesj',
     keys = {
-      { "gs", function() require('treesj').toggle() end,                             mode = "n" },
+      { "gs", function() require('treesj').toggle() end,                                 mode = "n" },
       { "gS", function() require('treesj').toggle({ split = { recursive = true } }) end, mode = "n" }
     },
     dependencies = {
