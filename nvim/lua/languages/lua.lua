@@ -36,7 +36,7 @@ ${2:snippet}
 
 
 vim.snippet.add("k", [[
-vim.keymap.set("${1:mode}", "${2:key}", "${3:action}" )
+vim.keymap.set("${1:mode}", "${2:key}", ${3:action})
 ]], { ft = "lua" })
 
 vim.dap.configurations.lua = {

@@ -84,3 +84,7 @@ vim.keymap.set("n", "cd", vim.lsp.buf.rename)
 vim.keymap.set("n", "M", vim.diagnostic.open_float)
 vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end)
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
+
+vim.keymap.set("n", "<leader>,", function ()
+  print("win: ", vim.api.nvim_get_current_win(), "buf: ", vim.api.nvim_get_current_buf())
+end)

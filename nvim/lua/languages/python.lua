@@ -17,8 +17,7 @@ vim.dap.adapters.python = function(cb, config)
   else
     cb({
       type = 'executable',
-      command = "/home/miron/repos/py/.virtualenvs/debugpy/bin/python",
-      args = { '-m', 'debugpy.adapter' },
+      command = vim.get_mason_bin("debugpy-adapter"),
       options = {
         source_filetype = 'python',
       },
