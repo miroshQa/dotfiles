@@ -39,18 +39,33 @@ vim.snippet.add("k", [[
 vim.keymap.set("${1:mode}", "${2:key}", ${3:action})
 ]], { ft = "lua" })
 
+
+vim.dap.adapters.nlua = {
+  type = 'server',
+  host = "127.0.0.1",
+  port = 8086,
+}
+
 vim.dap.configurations.lua = {
   {
     type = 'nlua',
     request = 'attach',
     name = "Attach to running Neovim instance",
+    init = (function()
+      local buf = -1
+      local dap = require("dap")
+      return function()
+        if vim.api.nvim_buf_is_valid(buf) then
+          vim.api.nvim_buf_delete(buf, { force = true, unload = true })
+        end
+        vim.cmd([[split | terminal nvim -c 'lua require("osv").launch({ port = 8086 })']])
+        buf = vim.api.nvim_get_current_buf()
+        vim.api.nvim_win_close(0, true)
+        dap.listeners.after.initialize["attach-lua"] = function()
+          require("debugmaster.state").terminal:attach_terminal_to_current_session(buf)
+          dap.listeners.after.initialize["attach-lua"] = nil
+        end
+      end
+    end)()
   }
 }
-
-vim.dap.adapters.nlua = function(callback, config)
-  callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
-end
-
-vim.keymap.set('n', '<leader>ls', function()
-  require "osv".launch({ port = 8086 })
-end, { noremap = true, desc = "lua debug server" })
