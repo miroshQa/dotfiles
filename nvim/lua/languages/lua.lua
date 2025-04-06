@@ -40,36 +40,34 @@ vim.keymap.set("${1:mode}", "${2:key}", ${3:action})
 ]], { ft = "lua" })
 
 
-vim.dap.adapters.nlua = {
-  type = 'server',
-  host = "127.0.0.1",
-  port = 8086,
-}
+vim.dap.adapters.nlua = (function()
+  local id = "nvimdebug"
+  local buf = -1
+  local dap = require("dap")
+  dap.listeners.after.disconnect[id] = function()
+      pcall(vim.api.nvim_buf_delete, buf, { force = true, unload = true })
+  end
+  return function(callback)
+    local port = math.random(49152, 65535)
+    vim.cmd(string.format([[split | terminal nvim -c 'lua require("osv").launch({ port = %s })']], port))
+    buf = vim.api.nvim_get_current_buf()
+    vim.api.nvim_win_close(0, true)
+    dap.listeners.after.initialize[id] = function()
+      require("debugmaster.state").terminal:attach_terminal_to_current_session(buf)
+      dap.listeners.after.initialize[id] = nil
+    end
+    callback({
+      type = 'server',
+      host = "127.0.0.1",
+      port = port,
+    })
+  end
+end)()
 
 vim.dap.configurations.lua = {
   {
     type = 'nlua',
     request = 'attach',
-    name = "Attach to running Neovim instance",
-    init = (function()
-      local id = "nvimdebug"
-      local buf = -1
-      local dap = require("dap")
-      dap.listeners.after.event_exited[id] = function()
-        if vim.api.nvim_buf_is_valid(buf) then
-          vim.api.nvim_buf_delete(buf, { force = true, unload = true })
-        end
-      end
-      dap.listeners.after.event_terminated[id] = dap.listeners.after.event_exited[id]
-      return function()
-        vim.cmd([[split | terminal nvim -c 'lua require("osv").launch({ port = 8086 })']])
-        buf = vim.api.nvim_get_current_buf()
-        vim.api.nvim_win_close(0, true)
-        dap.listeners.after.initialize[id] = function()
-          require("debugmaster.state").terminal:attach_terminal_to_current_session(buf)
-          dap.listeners.after.initialize[id] = nil
-        end
-      end
-    end)()
+    name = "Debug neovim (lua)",
   }
 }
