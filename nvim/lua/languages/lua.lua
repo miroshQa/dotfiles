@@ -52,18 +52,22 @@ vim.dap.configurations.lua = {
     request = 'attach',
     name = "Attach to running Neovim instance",
     init = (function()
+      local id = "nvimdebug"
       local buf = -1
       local dap = require("dap")
-      return function()
+      dap.listeners.after.event_exited[id] = function()
         if vim.api.nvim_buf_is_valid(buf) then
           vim.api.nvim_buf_delete(buf, { force = true, unload = true })
         end
+      end
+      dap.listeners.after.event_terminated[id] = dap.listeners.after.event_exited[id]
+      return function()
         vim.cmd([[split | terminal nvim -c 'lua require("osv").launch({ port = 8086 })']])
         buf = vim.api.nvim_get_current_buf()
         vim.api.nvim_win_close(0, true)
-        dap.listeners.after.initialize["attach-lua"] = function()
+        dap.listeners.after.initialize[id] = function()
           require("debugmaster.state").terminal:attach_terminal_to_current_session(buf)
-          dap.listeners.after.initialize["attach-lua"] = nil
+          dap.listeners.after.initialize[id] = nil
         end
       end
     end)()

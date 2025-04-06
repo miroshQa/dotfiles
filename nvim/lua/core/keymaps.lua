@@ -60,18 +60,9 @@ vim.keymap.set({ "n", "t" }, "<C-t>", (function()
   end
 end)(), { desc = "Toggle float terminal" })
 
-vim.keymap.set("t", "<esc>", (function()
-  local timer = assert(vim.uv.new_timer())
-  return function()
-    if timer:is_active() then
-      timer:stop()
-      vim.cmd("stopinsert")
-    else
-      timer:start(200, 0, function() end)
-      return "<esc>"
-    end
-  end
-end)(), { desc = "Exit terminal mode", expr = true })
+vim.keymap.set("t", "<C-\\>", function()
+  vim.cmd("stopinsert")
+end, { desc = "Exit terminal mode", expr = true })
 
 vim.keymap.set("n", '[e', function() vim.diagnostic.jump({ severity = "ERROR", count = -1, float = true }) end)
 vim.keymap.set("n", ']e', function() vim.diagnostic.jump({ severity = "ERROR", count = 1, float = true }) end)
