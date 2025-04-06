@@ -53,7 +53,9 @@ vim.dap.adapters.nlua = (function()
     buf = vim.api.nvim_get_current_buf()
     vim.api.nvim_win_close(0, true)
     dap.listeners.after.initialize[id] = function()
-      require("debugmaster.state").terminal:attach_terminal_to_current_session(buf)
+      local state = require("debugmaster.state")
+      state.terminal:attach_terminal_to_current_session(buf)
+      state.sidepanel:set_active(state.terminal)
       dap.listeners.after.initialize[id] = nil
     end
     callback({
