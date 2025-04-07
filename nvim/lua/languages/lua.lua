@@ -49,7 +49,10 @@ vim.dap.adapters.nlua = (function()
   end
   return function(callback)
     local port = math.random(49152, 65535)
-    vim.cmd(string.format([[split | terminal nvim -c 'lua require("osv").launch({ port = %s })']], port))
+    vim.cmd(string.format(
+      [[split | terminal nvim -c 'lua require("osv").launch({ port = %s, blocking = true})']],
+      port
+    ))
     buf = vim.api.nvim_get_current_buf()
     vim.api.nvim_win_close(0, true)
     dap.listeners.after.initialize[id] = function()
