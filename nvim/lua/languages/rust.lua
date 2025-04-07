@@ -6,11 +6,6 @@ vim.dap.adapters.lldb = {
   name = 'lldb'
 }
 
-vim.dap.adapters.codelldb = {
-  type = "executable",
-  command = vim.get_mason_bin("codelldb"),
-}
-
 -- https://github.com/llvm/llvm-project/blob/main/lldb/tools/lldb-dap/README.md
 vim.dap.configurations.rust = {
   {
@@ -46,13 +41,5 @@ vim.dap.configurations.rust = {
     request = 'attach',
     pid = vim.dap.utils.pick_process,
     args = {},
-  },
-  {
-    name = "Launch file (codelddb)",
-    type = "codelldb",
-    request = "launch",
-    program = vim.dap.utils.pick_file,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
   },
 }

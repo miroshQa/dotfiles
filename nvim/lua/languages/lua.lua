@@ -45,14 +45,19 @@ vim.dap.adapters.nlua = (function()
   local buf = -1
   local dap = require("dap")
   dap.listeners.after.disconnect[id] = function()
-      pcall(vim.api.nvim_buf_delete, buf, { force = true, unload = true })
+    pcall(vim.api.nvim_buf_delete, buf, { force = true, unload = true })
   end
   return function(callback)
     local port = math.random(49152, 65535)
-    vim.cmd(string.format(
-      [[split | terminal nvim -c 'lua require("osv").launch({ port = %s, blocking = true})']],
-      port
-    ))
+    local cmd = table.concat({
+      -- You can remove the two lines below if you are not planning to debug your neovim config on startup.
+      -- (also change --cmd flag to -c in this case)
+      -- You may also want to adjust the file paths if you're using a package manager other than lazy.nvim.
+      "vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/nvim-dap')",
+      "vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/one-small-step-for-vimkind')",
+      string.format("require('osv').launch({port = %d, blocking = true})", port),
+    }, "; ")
+    vim.cmd(string.format([[split | terminal nvim --cmd "lua %s"]], cmd))
     buf = vim.api.nvim_get_current_buf()
     vim.api.nvim_win_close(0, true)
     dap.listeners.after.initialize[id] = function()
