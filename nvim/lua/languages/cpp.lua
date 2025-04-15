@@ -9,14 +9,6 @@ vim.dap.configurations.cpp = {
     runInTerminal = true,
   },
   {
-    name = "Launch file (codelddb)",
-    type = "codelldb",
-    request = "launch",
-    program = vim.dap.utils.pick_file,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-  },
-  {
     -- If you get an "Operation not permitted" error using this, try disabling YAMA:
     --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
     name = "Attach to process",
