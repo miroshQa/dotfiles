@@ -81,3 +81,7 @@ vim.dap.configurations.lua = {
     name = "Debug neovim (lua)",
   }
 }
+
+vim.ftplugin.lua = function()
+  vim.keymap.set("v", "r", ":'<,'>lua<CR>", {buffer = 0, silent = true})
+end

@@ -96,7 +96,7 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" }, -- type ./ to activate
-          { name = "dap", max_item_count = 10}
+          { name = "dap",     max_item_count = 10 }
         }),
 
         window = {
@@ -125,4 +125,30 @@ return {
       cmp.setup(opts)
     end,
   },
+  {
+    'windwp/nvim-autopairs',
+    dependency = {
+      "hrsh7th/nvim-cmp",
+    },
+    event = 'InsertEnter',
+    config = function()
+      require("nvim-autopairs").setup({})
+
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local cmp = require('cmp')
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
+    end,
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require("luasnip").config.setup({ history = true })
+    end,
+    keys = {
+      { "<c-n>", function() require("luasnip").jump(1) end,  mode = { "i", "s" } },
+      { "<c-p>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } } },
+  }
 }
