@@ -6,7 +6,7 @@ vim.keymap.set('n', '<up>', '<C-w><C-k>', { desc = 'Move focus to the upper wind
 vim.keymap.set("n", "[t", "<cmd>tabp<CR>", { desc = "Go to prev tab" })
 vim.keymap.set("n", "]t", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 
-vim.keymap.set("n", "<leader>w", function() vim.cmd("silent! w") end, { desc = "Write buf" })
+vim.keymap.set("n", "<leader>w", function() vim.cmd("silent! w") end, { desc = "Write buffer" })
 vim.keymap.set("n", "<leader>q", function() vim.cmd("silent! q") end, { desc = "Quit window" })
 vim.keymap.set("n", "ga", "<cmd>b#<CR>", { desc = "Go to last Accessed file (Ctrl + ^ synonim)" })
 vim.keymap.set("x", "R", ":s###g<left><left><left>", { desc = "Start replacement in selected range" })
@@ -72,8 +72,4 @@ vim.keymap.set("n", '[d', function() vim.diagnostic.jump({ count = -1, float = t
 vim.keymap.set("n", "cd", vim.lsp.buf.rename)
 vim.keymap.set("n", "M", vim.diagnostic.open_float)
 vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end)
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
-
-vim.keymap.set("n", "<leader>,", function ()
-  print("win: ", vim.api.nvim_get_current_win(), "buf: ", vim.api.nvim_get_current_buf())
-end)
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, {desc = "Lsp format buffer"})

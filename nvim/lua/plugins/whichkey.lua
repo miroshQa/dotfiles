@@ -11,13 +11,10 @@ return  {
     })
 
     require('which-key').add {
-      { "<leader>d", group = "Debug" },
-      { "<leader>Q", hidden = true },
       -- <leader>s is a prefix for uncommon pickers, unlike live_grep and find_files
       { "<leader>s", group = "Search"},
       { "<leader>h", group = "Hunks", icon = {icon = "", color = "red"} },
       { "<leader>l", group = "Lsp", icon = {icon = "", color = "blue"} },
-      { "<leader>u", group = "Ui/Update", icon = {icon = "", color = "blue"}},
     }
   end,
 }

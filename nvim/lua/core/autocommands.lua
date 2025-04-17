@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'WinResized' }, {
+vim.api.nvim_create_autocmd('VimResized', {
   callback = function(ev)
     vim.cmd("wincmd =")
   end,

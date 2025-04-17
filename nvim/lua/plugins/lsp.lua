@@ -9,7 +9,7 @@ return {
       "ibhagwan/fzf-lua",
     },
     keys = {
-      { "<leader>lr", "<cmd>LspRestart<CR>", mode = "n" },
+      { "<leader>lr", "<cmd>LspRestart<CR>", desc = "Lsp restart", mode = "n" },
     },
     config = function()
       local servers = {}
