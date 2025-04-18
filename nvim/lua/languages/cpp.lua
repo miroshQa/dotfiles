@@ -1,12 +1,32 @@
+vim.dap.adapters.cppdbg = {
+  id = 'cppdbg',
+  type = 'executable',
+  command = vim.get_mason_bin('OpenDebugAD7'),
+}
+
 vim.dap.configurations.cpp = {
   {
-    name = 'Launch',
+    name = 'Launch file (lldb-dap)',
     type = 'lldb',
     request = 'launch',
     program = vim.dap.utils.pick_file,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
     runInTerminal = true,
+  },
+  {
+    name = "Launch file (cpptools)",
+    type = "cppdbg",
+    request = "launch",
+    program = "${command:pickFile}",
+    cwd = '${workspaceFolder}',
+    setupCommands = {
+      {
+        text = '-enable-pretty-printing',
+        description = 'enable pretty printing',
+        ignoreFailures = false
+      },
+    },
   },
   {
     -- If you get an "Operation not permitted" error using this, try disabling YAMA:
