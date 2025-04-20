@@ -3,6 +3,7 @@ require("core.autocommands")
 require("core.pluginmanager")
 require("core.keymaps")
 require("languages")
+require("core.wezterm")
 
 local _ = (function()
   local default = "gruvboxbaby"

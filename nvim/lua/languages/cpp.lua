@@ -17,7 +17,7 @@ vim.dap.configurations.cpp = {
     name = "Attach to process (lldb-dap)",
     type = 'lldb', -- Adjust this to match your adapter name (`dap.adapters.<name>`)
     request = 'attach',
-    pid = "${command:pickProcess}",
+    pid = vim.dap.utils.pick_process,
     args = {},
   },
 }
