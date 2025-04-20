@@ -1,8 +1,4 @@
 -- Windows / Tabs Navigation
-vim.keymap.set('n', '<left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 vim.keymap.set("n", "[t", "<cmd>tabp<CR>", { desc = "Go to prev tab" })
 vim.keymap.set("n", "]t", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 
