@@ -13,5 +13,6 @@ vim.dap.configurations.python = {
     request = 'launch',
     name = "Launch file",
     program = "${file}",
+    console = "integratedTerminal",
   },
 }

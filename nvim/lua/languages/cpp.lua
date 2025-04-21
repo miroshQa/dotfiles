@@ -1,3 +1,9 @@
+vim.dap.adapters.cppdbg = {
+  id = 'cppdbg',
+  type = 'executable',
+  command = vim.get_mason_bin("OpenDebugAD7"),
+}
+
 vim.dap.configurations.cpp = {
   {
     name = 'Launch file (lldb-dap)',
@@ -20,6 +26,32 @@ vim.dap.configurations.cpp = {
     pid = vim.dap.utils.pick_process,
     args = {},
   },
+  {
+    name = "rr",
+    type = "cppdbg",
+    request = "launch",
+    program = vim.dap.utils.pick_file,
+    args = {},
+    miDebuggerServerAddress = "127.0.0.1:50505",
+    stopAtEntry = true,
+    cwd = vim.fn.getcwd,
+    environment = {},
+    externalConsole = true,
+    MIMode = "gdb",
+    setupCommands = {
+      {
+        description = "Setup to resolve symbols",
+        text = "set sysroot /",
+        ignoreFailures = false
+      },
+      {
+        description = "Enable pretty-printing for gdb",
+        text = "-enable-pretty-printing",
+        ignoreFailures = false
+      }
+    },
+  },
 }
 
 vim.dap.configurations.c = vim.dap.configurations.cpp
+-- vim.dap.configurations.rust = vim.dap.configurations.cpp

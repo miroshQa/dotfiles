@@ -2,7 +2,6 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPost", "BufNewFile" },
-    version = "0.9.0",
     keys = {
       { "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>",                                                                    "n",         desc = "Reset hunk" },
       { "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>",                                                                  mode = "n",  desc = "Reset Buffer" },

@@ -30,6 +30,7 @@ vim.dap.configurations.rust = {
       return {
         ([[!command script import '%s']]):format(script_file),
         ([[!command source '%s']]):format(commands_file),
+        "process handle SIGWINCH -p true -s false -n false"
       }
     end,
   },

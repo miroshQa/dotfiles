@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = {"Neotree"},
@@ -24,7 +25,6 @@ return {
           hide_hidden = false,
         },
       },
-
       window = {
         position = "current",
         mappings = {
@@ -44,12 +44,6 @@ return {
           ["<"] = false,
           [">"] = false,
           ["s"] = false,
-          ["Y"] = function(state)
-            local node = state.tree:get_node()
-            local filepath = node:get_id()
-            vim.fn.setreg('*', filepath)
-            vim.notify("Copied absolute path: " .. filepath)
-          end,
         },
       },
     })

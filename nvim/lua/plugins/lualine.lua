@@ -3,13 +3,12 @@ local function lsp_status()
   if #attached_clients == 0 then
     return ""
   end
-  local names = vim.iter(attached_clients)
-      :map(function(client)
-        local name = client.name:gsub("language.server", "ls")
-        return name
-      end)
-      :join(", ")
-  return "LSP: " .. names
+  local names = {}
+  for _, client in ipairs(attached_clients) do
+    local name = client.name:gsub("language.server", "ls")
+    table.insert(names, name)
+  end
+  return "LSP: " .. table.concat(names, ", ")
 end
 
 local function macro()
@@ -41,21 +40,8 @@ return {
         lualine_a = {
           {
             "mode",
-            fmt = function(str)
-              if dmode_enabled then
-                return "DEBUG"
-              end
-              return str
-            end,
-
-            color = function(tb)
-              if dmode_enabled then
-                return {
-                  bg = "#2da84f",
-                }
-              end
-              return tb
-            end,
+            fmt = function(str) return dmode_enabled and "DEBUG" or str end,
+            color = function(tb) return dmode_enabled and "dCursor" or tb end,
           },
         },
         lualine_b = {},
