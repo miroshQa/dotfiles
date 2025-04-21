@@ -56,7 +56,7 @@ vim.keymap.set({ "n", "t" }, "<C-t>", (function()
   end
 end)(), { desc = "Toggle float terminal" })
 
-vim.keymap.set("t", "<C-/>", "<C-\\><C-n>", { desc = "Exit terminal mode"})
+vim.keymap.set("t", "<C-/>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 vim.keymap.set("n", '[e', function() vim.diagnostic.jump({ severity = "ERROR", count = -1, float = true }) end)
 vim.keymap.set("n", ']e', function() vim.diagnostic.jump({ severity = "ERROR", count = 1, float = true }) end)
@@ -68,4 +68,26 @@ vim.keymap.set("n", '[d', function() vim.diagnostic.jump({ count = -1, float = t
 vim.keymap.set("n", "cd", vim.lsp.buf.rename)
 vim.keymap.set("n", "M", vim.diagnostic.open_float)
 vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end)
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, {desc = "Lsp format buffer"})
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Lsp format buffer" })
+
+local _ = (function()
+  local maps = { Left = "h", Right = "l", Up = "k", Down = "j" }
+  ---@param direction "Left" | "Right" | "Down" | "Up"
+  local function at_edge(direction)
+    return vim.fn.winnr() == vim.fn.winnr(maps[direction])
+  end
+
+  ---@param direction "Left" | "Right" | "Down" | "Up"
+  local function move(direction)
+    if at_edge(direction) then
+      vim.fn.system({ "wezterm", "cli", "activate-pane-direction", direction })
+    else
+      vim.cmd("wincmd " .. maps[direction])
+    end
+  end
+
+  vim.keymap.set("n", "<S-down>", function() move "Down" end)
+  vim.keymap.set("n", "<S-up>", function() move "Up" end)
+  vim.keymap.set("n", "<S-right>", function() move "Right" end)
+  vim.keymap.set("n", "<S-left>", function() move "Left" end)
+end)()
