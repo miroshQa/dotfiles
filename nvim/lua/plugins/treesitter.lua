@@ -2,7 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
-    config = vim.schedule_wrap(function()
+    config = function()
       ---@diagnostic disable-next-line: missing-fields
       require("nvim-treesitter.configs").setup({
         auto_install = true,
@@ -10,12 +10,11 @@ return {
           enable = true,
         }
       })
-    end),
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    event = { "BufReadPost", "BufNewFile" },
-    config = vim.schedule_wrap(function()
+    config = function()
       local swap = require("nvim-treesitter.textobjects.swap")
       vim.keymap.set("n", "{", function() swap.swap_previous("@parameter.inner") end)
       vim.keymap.set("n", "}", function() swap.swap_next("@parameter.inner") end)
@@ -43,7 +42,7 @@ return {
           },
         },
       }
-    end)
+    end
   },
   {
     "windwp/nvim-ts-autotag",
