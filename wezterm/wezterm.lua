@@ -34,25 +34,24 @@ local function close_copy_mode()
 end
 
 config.keys = {
-
   { key = "t",     mods = "ALT",  action = act.SpawnTab("CurrentPaneDomain") },
-  { key = "q",     mods = "ALT",  action = wezterm.action.CloseCurrentPane({ confirm = true }) },
+  { key = "q",     mods = "ALT",  action = act.CloseCurrentPane({ confirm = true }) },
   { key = "h",     mods = "ALT",  action = act.ActivateTabRelativeNoWrap(-1) },
   { key = "l",     mods = "ALT",  action = act.ActivateTabRelativeNoWrap(1) },
   { key = "H",     mods = "ALT",  action = act.MoveTabRelative(-1) },
   { key = "L",     mods = "ALT",  action = act.MoveTabRelative(1) },
   { key = "Enter", mods = "CTRL", action = act.ToggleFullScreen },
-  { key = "v",     mods = "ALT",  action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-  { key = "x",     mods = "ALT",  action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "v",     mods = "ALT",  action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+  { key = "x",     mods = "ALT",  action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "s",     mods = "ALT",  action = act.ActivatePaneDirection("Left") },
   { key = "f",     mods = "ALT",  action = act.ActivatePaneDirection("Right") },
   { key = "e",     mods = "ALT",  action = act.ActivatePaneDirection("Up") },
   { key = "d",     mods = "ALT",  action = act.ActivatePaneDirection("Down") },
-  { key = "a",     mods = "ALT",  action = wezterm.action.ActivateCopyMode },
-  { mods = "ALT",  key = "r",     action = wezterm.action.RotatePanes("Clockwise") },
+  { key = "a",     mods = "ALT",  action = act.ActivateCopyMode },
+  { key = "r",     mods = "ALT",  action = act.RotatePanes("Clockwise") },
   { key = "w",     mods = "ALT",  action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
   { key = "o",     mods = "ALT",  action = act.TogglePaneZoomState },
-  { key = 'z',     mods = 'ALT',  action = wezterm.action.ShowDebugOverlay },
+  { key = 'z',     mods = 'ALT',  action = act.ShowDebugOverlay },
 }
 
 config.key_tables = {
@@ -80,13 +79,13 @@ config.key_tables = {
       mods = "SHIFT",
       action = act.Multiple({ act.CopyMode("ClearPattern"), act.Search({ CaseInSensitiveString = "" }) }),
     },
-    { key = "n", mods = "NONE",  action = wezterm.action({ CopyMode = "NextMatch" }) },
-    { key = "N", mods = "SHIFT", action = wezterm.action({ CopyMode = "PriorMatch" }) },
+    { key = "n", mods = "NONE",  action = act({ CopyMode = "NextMatch" }) },
+    { key = "N", mods = "SHIFT", action = act({ CopyMode = "PriorMatch" }) },
 
-    { key = "h", mods = "NONE",  action = wezterm.action({ CopyMode = "MoveLeft" }) },
-    { key = "j", mods = "NONE",  action = wezterm.action({ CopyMode = "MoveDown" }) },
-    { key = "k", mods = "NONE",  action = wezterm.action({ CopyMode = "MoveUp" }) },
-    { key = "l", mods = "NONE",  action = wezterm.action({ CopyMode = "MoveRight" }) },
+    { key = "h", mods = "NONE",  action = act({ CopyMode = "MoveLeft" }) },
+    { key = "j", mods = "NONE",  action = act({ CopyMode = "MoveDown" }) },
+    { key = "k", mods = "NONE",  action = act({ CopyMode = "MoveUp" }) },
+    { key = "l", mods = "NONE",  action = act({ CopyMode = "MoveRight" }) },
 
     { key = "b", mods = "NONE",  action = act.CopyMode("MoveBackwardWord") },
     { key = "w", mods = "NONE",  action = act.CopyMode("MoveForwardWord") },
@@ -119,12 +118,6 @@ config.key_tables = {
     { key = "Escape", mods = "NONE", action = act.Multiple({ "ActivateCopyMode" }) },
     { key = "Enter",  mods = "NONE", action = "ActivateCopyMode" },
     { key = "u",      mods = "CTRL", action = act.CopyMode("ClearPattern") },
-  },
-}
-
-config.unix_domains = {
-  {
-    name = "unix",
   },
 }
 

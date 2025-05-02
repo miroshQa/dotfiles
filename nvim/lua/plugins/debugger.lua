@@ -21,6 +21,7 @@ return {
         nowait = true,
         desc = "Debug mode toggle"
       })
+      dm.plugins.osv_integration.enabled = true
     end
   }
 }
