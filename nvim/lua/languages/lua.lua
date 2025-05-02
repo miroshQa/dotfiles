@@ -48,16 +48,21 @@ vim.dap.adapters.nlua = (function()
     pcall(vim.api.nvim_buf_delete, buf, { force = true, unload = true })
   end
   return function(callback)
-    local port = math.random(49152, 65535)
-    local cmd = table.concat({
-      -- You can remove the two lines below if you are not planning to debug your neovim config on startup.
-      -- (also change --cmd flag to -c in this case)
-      -- You may also want to adjust the file paths if you're using a package manager other than lazy.nvim.
-      "vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/nvim-dap')",
-      "vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/one-small-step-for-vimkind')",
-      string.format("require('osv').launch({port = %d, blocking = true})", port),
-    }, "; ")
-    vim.cmd(string.format([[split | terminal nvim --cmd "lua %s"]], cmd))
+    -- we can't capture even integers for the function we dump
+    -- hece using this json trick
+    ---@param vars init-vars
+    local init = function(vars)
+      vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/nvim-dap')
+      vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/one-small-step-for-vimkind')
+      require('osv').launch({ blocking = true, port = vars.port })
+    end
+    ---@class init-vars
+    local vars = { port = math.random(49152, 65535) }
+    local cmd = string.format(
+      [[split | terminal nvim --cmd "lua loadstring( vim.base64.decode('%s') )( vim.json.decode(vim.base64.decode('%s')) )"]],
+      vim.base64.encode(string.dump(init)), vim.base64.encode(vim.json.encode(vars))
+    )
+    vim.cmd(cmd)
     buf = vim.api.nvim_get_current_buf()
     vim.api.nvim_win_close(0, true)
     dap.listeners.after.initialize[id] = function()
@@ -69,7 +74,7 @@ vim.dap.adapters.nlua = (function()
     callback({
       type = 'server',
       host = "127.0.0.1",
-      port = port,
+      port = vars.port,
     })
   end
 end)()
@@ -83,5 +88,5 @@ vim.dap.configurations.lua = {
 }
 
 vim.ftplugin.lua = function()
-  vim.keymap.set("v", "r", ":'<,'>lua<CR>", {buffer = 0, silent = true})
+  vim.keymap.set("v", "r", ":'<,'>lua<CR>", { buffer = 0, silent = true })
 end
