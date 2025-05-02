@@ -49,15 +49,20 @@ vim.dap.adapters.nlua = (function()
   end
   return function(callback)
     -- we can't capture even integers for the function we dump
-    -- hece using this json trick
+    -- hence using this json trick
     ---@param vars init-vars
     local init = function(vars)
-      vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/nvim-dap')
-      vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/one-small-step-for-vimkind')
+      vim.opt.rtp:prepend(vars.dap_path)
+      vim.opt.rtp:prepend(vars.osv_path)
       require('osv').launch({ blocking = true, port = vars.port })
     end
     ---@class init-vars
-    local vars = { port = math.random(49152, 65535) }
+    local vars = {
+      port = math.random(49152, 65535),
+      osv_path = assert(vim.go.rtp:match("[^,]+one%-small%-step%-for%-vimkind"), "abort: one-small-step-for-vimkind not installed!!!"),
+      dap_path = assert(vim.go.rtp:match("[^,]+nvim%-dap"), "abort: nvim-dap not installed!!!"),
+    }
+    -- https://gist.github.com/veechs/bc40f1f39b30cb1251825f031cd6d978
     local cmd = string.format(
       [[split | terminal nvim --cmd "lua loadstring( vim.base64.decode('%s') )( vim.json.decode(vim.base64.decode('%s')) )"]],
       vim.base64.encode(string.dump(init)), vim.base64.encode(vim.json.encode(vars))
