@@ -1,4 +1,8 @@
 -- Windows / Tabs Navigation
+vim.keymap.set('n', '<left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 vim.keymap.set("n", "[t", "<cmd>tabp<CR>", { desc = "Go to prev tab" })
 vim.keymap.set("n", "]t", "<cmd>tabn<CR>", { desc = "Go to next tab" })
 
@@ -69,25 +73,3 @@ vim.keymap.set("n", "cd", vim.lsp.buf.rename)
 vim.keymap.set("n", "M", vim.diagnostic.open_float)
 vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end)
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Lsp format buffer" })
-
-local _ = (function()
-  local maps = { Left = "h", Right = "l", Up = "k", Down = "j" }
-  ---@param direction "Left" | "Right" | "Down" | "Up"
-  local function at_edge(direction)
-    return vim.fn.winnr() == vim.fn.winnr(maps[direction])
-  end
-
-  ---@param direction "Left" | "Right" | "Down" | "Up"
-  local function move(direction)
-    if at_edge(direction) then
-      vim.fn.system({ "wezterm", "cli", "activate-pane-direction", direction })
-    else
-      vim.cmd("wincmd " .. maps[direction])
-    end
-  end
-
-  vim.keymap.set("n", "<S-down>", function() move "Down" end)
-  vim.keymap.set("n", "<S-up>", function() move "Up" end)
-  vim.keymap.set("n", "<S-right>", function() move "Right" end)
-  vim.keymap.set("n", "<S-left>", function() move "Left" end)
-end)()

@@ -33,34 +33,8 @@ local function close_copy_mode()
   })
 end
 
-local function is_vim(pane)
-  local process_info = pane:get_foreground_process_info()
-  local process_name = process_info and process_info.name
-  return process_name == "nvim" or process_name == "vim"
-end
-
----@param key string
-local function split_nav(key)
-  return {
-    mods = "SHIFT",
-    key = key,
-    action = wezterm.action_callback(function(win, pane)
-      if is_vim(pane) then
-        -- pass the keys through to vim/nvim
-        win:perform_action({ SendKey = { key = key, mods = "SHIFT" }, }, pane)
-      else
-        local dir = key:match("([%a]+)Arrow")
-        win:perform_action({ ActivatePaneDirection = dir }, pane)
-      end
-    end),
-  }
-end
-
 config.keys = {
-  split_nav("LeftArrow"),
-  split_nav("DownArrow"),
-  split_nav("UpArrow"),
-  split_nav("RightArrow"),
+
   { key = "t",     mods = "ALT",  action = act.SpawnTab("CurrentPaneDomain") },
   { key = "q",     mods = "ALT",  action = wezterm.action.CloseCurrentPane({ confirm = true }) },
   { key = "h",     mods = "ALT",  action = act.ActivateTabRelativeNoWrap(-1) },
@@ -70,6 +44,10 @@ config.keys = {
   { key = "Enter", mods = "CTRL", action = act.ToggleFullScreen },
   { key = "v",     mods = "ALT",  action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "x",     mods = "ALT",  action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "s",     mods = "ALT",  action = act.ActivatePaneDirection("Left") },
+  { key = "f",     mods = "ALT",  action = act.ActivatePaneDirection("Right") },
+  { key = "e",     mods = "ALT",  action = act.ActivatePaneDirection("Up") },
+  { key = "d",     mods = "ALT",  action = act.ActivatePaneDirection("Down") },
   { key = "a",     mods = "ALT",  action = wezterm.action.ActivateCopyMode },
   { mods = "ALT",  key = "r",     action = wezterm.action.RotatePanes("Clockwise") },
   { key = "w",     mods = "ALT",  action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
