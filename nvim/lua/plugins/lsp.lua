@@ -1,31 +1,18 @@
 return {
+  { "williamboman/mason.nvim",  opts = { ui = { backdrop = 100, } } },
+  { "williamboman/mason-lspconfig.nvim", },
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile" },
-    cmd = { "Mason" },
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "ibhagwan/fzf-lua",
-    },
-    keys = {
-      { "<leader>lr", "<cmd>LspRestart<CR>", desc = "Lsp restart", mode = "n" },
-    },
     config = function()
-      local servers = {}
+      vim.keymap.set("n", "<leader>lr", "<cmd>LspRestart<CR>", { desc = "Lsp restart" })
+      vim.keymap.set("n", "<leader>lm", "<cmd>Mason<CR>", { desc = "Mason" })
       require("mason").setup()
       require("mason-lspconfig").setup()
-      require("mason-lspconfig").setup_handlers({
-        function(server_name)
-          local server = servers[server_name] or {}
-          require("lspconfig")[server_name].setup(server)
-        end,
-      })
-
       -- still can install and setup servers manually without mason
-      -- (just for future reference, because it useful someitmes, for example
-      -- rust analyzer ships with rustup so we don't want to install it with mason yet)
-      require("lspconfig")["rust_analyzer"].setup({})
+      -- rust analyzer ships with rustup so we don't want to install it with mason)
+      -- just install it manually and then enable it via vim.lsp
+      vim.lsp.enable("rust_analyzer")
     end,
   },
   {

@@ -19,6 +19,7 @@ vim.opt.smartindent = true
 
 -- UI
 vim.opt.showcmd = false
+vim.o.winborder = "rounded"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.showtabline = 1
