@@ -1,4 +1,4 @@
-vim.keymap.set('n',  '<Esc>', "<ESC>:noh<CR>:lua require('notify').dismiss()<CR>", {silent = true})
+vim.keymap.set("n", "<leader>;", "<ESC>:noh<CR>:lua require('notify').dismiss()<CR>", { desc = "clear search hl", silent = true })
 -- The main purpose of this plugin for me is to replace default nvim messages when you have to press <CR> to continue editing
 -- And by the way command line pop up completion menu with borders is also very nice
 -- It also adds search labels for / and ?, *, #, n N, , so I can delete hlslens
