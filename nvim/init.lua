@@ -5,3 +5,6 @@ require("core.keymaps")
 require("languages")
 vim.cmd("colorscheme gruvboxbaby")
 -- vim.api.nvim_set_hl(0, "dCursor", {fg = "#2c2c2c", bg = "#FF2C2C"})
+
+local filetree = require("filetree")
+vim.keymap.set("n", "<leader>t", filetree.toggle)
