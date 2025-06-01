@@ -43,14 +43,14 @@ end
 local theme = {
   NormalFloat = { fg = c.foreground, bg = c.background },
   Normal = { fg = c.foreground, bg = c.background },
-  Comment = { fg = c.comment, italic = true},
+  Comment = { fg = c.comment, italic = true },
   Constant = { fg = c.pink },
-  String = { fg = c.soft_green, nocombine = true},
+  String = { fg = c.soft_green, nocombine = true },
   Character = { fg = c.soft_yellow },
   Number = { fg = c.bright_yellow },
   Boolean = { fg = c.orange },
   Float = { fg = c.bright_yellow },
-  Identifier = { fg = c.light_blue},
+  Identifier = { fg = c.light_blue },
   Function = { fg = c.soft_yellow },
   Statement = { fg = c.red },
   Conditional = { fg = c.foreground },
@@ -137,17 +137,17 @@ local theme = {
   ["@namespace"] = { fg = c.light_blue },
   ["@module"] = { fg = c.light_blue },
   ["@func.builtin"] = { fg = c.soft_yellow },
-  ["@function"] = { fg = c.soft_yellow, bold = true},
-  ["@function.call"] = { fg = c.soft_yellow, bold = true},
-  ["@function.builtin"] = { fg = c.soft_yellow, bold = true},
+  ["@function"] = { fg = c.soft_yellow, bold = true },
+  ["@function.call"] = { fg = c.soft_yellow, bold = true },
+  ["@function.builtin"] = { fg = c.soft_yellow, bold = true },
   ["@func.macro"] = { fg = c.soft_yellow },
   ["@parameter"] = { fg = c.blue_gray, nocombine = true },
   ["@variable.parameter"] = { fg = c.blue_gray, nocombine = true },
   ["@parameter.reference"] = { fg = c.dark_gray },
-  ["@method"] = { fg = c.soft_yellow, bold = true},
-  ["@function.method"] = { fg = c.soft_yellow, bold = true},
-  ["@method.call"] = { fg = c.soft_yellow, bold = true},
-  ["@function.method.call"] = { fg = c.soft_yellow, bold = true},
+  ["@method"] = { fg = c.soft_yellow, bold = true },
+  ["@function.method"] = { fg = c.soft_yellow, bold = true },
+  ["@method.call"] = { fg = c.soft_yellow, bold = true },
+  ["@function.method.call"] = { fg = c.soft_yellow, bold = true },
   ["@field"] = { fg = c.light_blue },
   ["@variable.member"] = { fg = c.light_blue },
   ["@property"] = { fg = c.blue_gray },
@@ -157,7 +157,7 @@ local theme = {
   ["@repeat"] = { fg = c.red },
   ["@keyword.repeat"] = { fg = c.red },
   ["@label"] = { fg = c.blue_gray },
-  ["@keyword"] = { fg = c.red,  italic = true },
+  ["@keyword"] = { fg = c.red, italic = true },
   ["@keyword.return"] = { fg = c.red, italic = true },
   ["@keyword.function"] = { fg = c.red, italic = true },
   ["@keyword.operator"] = { fg = c.red },
@@ -175,12 +175,12 @@ local theme = {
   ["@text"] = { fg = c.soft_yellow },
   ["@text.strong"] = { fg = c.soft_yellow, bold = true },
   ["@text.emphasis"] = { fg = c.soft_yellow, italic = true },
-  ["@text.underline"] = { fg = c.soft_yellow, underline = true},
+  ["@text.underline"] = { fg = c.soft_yellow, underline = true },
   ["@text.strike"] = { fg = c.medium_gray, strikethrough = true },
   ["@text.title"] = { fg = c.soft_yellow },
   ["@text.literal"] = { fg = c.soft_yellow },
   ["@markup"] = { fg = c.soft_yellow },
-  ["@markup.strong"] = { fg = c.soft_yellow, bold = true},
+  ["@markup.strong"] = { fg = c.soft_yellow, bold = true },
   ["@markup.emphasis"] = { fg = c.soft_yellow, italic = true },
   ["@markup.underline"] = { fg = c.soft_yellow, underline = true },
   ["@markup.strike"] = { fg = c.medium_gray, strikethrough = true },
@@ -303,13 +303,17 @@ local theme = {
   ModeMsg = { fg = c.milk },
   IncSearch = { bg = "#ff9e64", fg = "White" },
   CurSearch = { bg = "#ff9e64", fg = "White" },
-  FlashLabel = { bg = "#0076CE"},
+  FlashLabel = { bg = "#0076CE" },
 
   WinBar = { bg = c.background_light },
-  WinBarNC = {bg = c.background_light },
+  WinBarNC = { bg = c.background_light },
 }
 
-vim.cmd.hi("clear")
+-- reset colors
+if vim.g.colors_name then
+  vim.cmd.hi("clear")
+end
+
 for group, conf in pairs(theme) do
   vim.api.nvim_set_hl(0, group, conf)
 end
