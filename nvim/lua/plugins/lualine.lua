@@ -1,5 +1,5 @@
 local function lsp_status()
-  local attached_clients = vim.lsp.get_clients({ bufnr = 0 })
+  local attached_clients = vim.lsp.get_clients { bufnr = 0 }
   if #attached_clients == 0 then
     return ""
   end
@@ -30,11 +30,11 @@ return {
         dmode_enabled = args.data.enabled
       end
     })
-    require("lualine").setup({
+    require("lualine").setup {
       options = {
         globalstatus = true,
-        component_separators = { left = '', right = '' },
-        section_separators = { left = '', right = '' },
+        component_separators = { left = "", right = "" },
+        section_separators = { left = "", right = "" },
       },
       sections = {
         lualine_a = {
@@ -46,7 +46,7 @@ return {
         },
         lualine_b = {},
         lualine_c = {
-          { "filename",   path = 1 },
+          { "filename", path = 1 },
           { "branch" },
           { "diff" },
           { "diagnostics" },
@@ -67,6 +67,6 @@ return {
         lualine_y = {},
         lualine_z = {},
       },
-    })
+    }
   end,
 }

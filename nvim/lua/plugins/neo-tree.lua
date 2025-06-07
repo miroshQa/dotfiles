@@ -1,7 +1,7 @@
 ---@diagnostic disable: missing-fields
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  cmd = {"Neotree"},
+  cmd = { "Neotree" },
   branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -9,10 +9,10 @@ return {
     "MunifTanjim/nui.nvim",
   },
   keys = {
-    {"<leader>e", "<cmd>Neotree toggle reveal<CR>", mode = "n",  desc = "Toggle file tree" }
+    { "<leader>e", "<cmd>Neotree toggle reveal<CR>", mode = "n", desc = "Toggle file tree" }
   },
   config = function()
-    require("neo-tree").setup({
+    require("neo-tree").setup {
       popup_border_style = "rounded",
       filesystem = {
         shared_clipboard = true,
@@ -46,6 +46,6 @@ return {
           ["s"] = false,
         },
       },
-    })
+    }
   end,
 }

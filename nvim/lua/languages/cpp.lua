@@ -4,6 +4,12 @@ vim.dap.adapters.cppdbg = {
   command = vim.get_mason_bin("OpenDebugAD7"),
 }
 
+vim.dap.adapters.codelldb = {
+  type = "executable",
+  command = vim.get_mason_bin("codelldb"),
+
+}
+
 vim.dap.configurations.cpp = {
   {
     name = 'Launch file (lldb-dap)',
@@ -38,18 +44,24 @@ vim.dap.configurations.cpp = {
     environment = {},
     externalConsole = true,
     MIMode = "gdb",
-    setupCommands = {
-      {
-        description = "Setup to resolve symbols",
-        text = "set sysroot /",
-        ignoreFailures = false
-      },
-      {
-        description = "Enable pretty-printing for gdb",
-        text = "-enable-pretty-printing",
-        ignoreFailures = false
-      }
-    },
+  },
+  {
+    name = 'Launch cpptools',
+    type = 'lldb',
+    request = 'launch',
+    program = vim.dap.utils.pick_file,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    runInTerminal = false,
+    args = {},
+  },
+  {
+    name = "Launch file (codelddb)",
+    type = "codelldb",
+    request = "launch",
+    program = vim.dap.utils.pick_file,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
   },
 }
 

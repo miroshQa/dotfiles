@@ -4,12 +4,12 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
+      require("nvim-treesitter.configs").setup {
         auto_install = true,
         highlight = {
           enable = true,
         }
-      })
+      }
     end,
   },
   {
@@ -50,19 +50,19 @@ return {
     opts = {},
   },
   {
-    'Wansmer/treesj',
+    "Wansmer/treesj",
     keys = {
-      { "gs", function() require('treesj').toggle() end,                                 mode = "n" },
-      { "gS", function() require('treesj').toggle({ split = { recursive = true } }) end, mode = "n" }
+      { "gs", function() require("treesj").toggle() end, mode = "n" },
+      { "gS", function() require("treesj").toggle { split = { recursive = true } } end, mode = "n" }
     },
     dependencies = {
-      'nvim-treesitter/nvim-treesitter',
+      "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require('treesj').setup({
+      require("treesj").setup {
         max_join_length = 1000000,
         use_default_keymaps = false,
-      })
+      }
     end,
   }
 }

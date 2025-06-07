@@ -1,5 +1,5 @@
 return {
-  { "williamboman/mason.nvim",  opts = { ui = { backdrop = 100, } } },
+  { "williamboman/mason.nvim", opts = { ui = { backdrop = 100, } } },
   { "williamboman/mason-lspconfig.nvim", },
   {
     "neovim/nvim-lspconfig",
