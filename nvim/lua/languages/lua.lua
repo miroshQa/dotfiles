@@ -34,6 +34,11 @@ ${2:snippet}
 ]], {ft = "${3:filetype}"})
 ]=], { ft = "lua" })
 
+vim.snippet.add("bp", [[
+local api = vim.api
+local buf = api.nvim_create_buf(false, true)
+local win = api.nvim_open_win(buf, false, {split = "right"})
+]], { ft = "lua" })
 
 vim.snippet.add("k", [[
 vim.keymap.set("${1:mode}", "${2:key}", ${3:action})
@@ -41,4 +46,5 @@ vim.keymap.set("${1:mode}", "${2:key}", ${3:action})
 
 vim.ftplugin.lua = function()
   vim.keymap.set("v", "r", ":'<,'>lua<CR>", { buffer = 0, silent = true })
+  vim.keymap.set("n", "R", ":source %<CR>", { buffer = 0, silent = true })
 end
